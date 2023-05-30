@@ -42,6 +42,7 @@ uint8_t GameOfLife::countAliveNeighbors(const uint16_t x, const uint16_t y)
 
 void GameOfLife::update()
 {
+    #pragma omp parallel for
     for (int y = 0; y < m_height; y++)
     {
         for (int x = 0; x < m_width; x++)

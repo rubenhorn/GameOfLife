@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <omp.h>
 
 #include "GameOfLife.hpp"
 
@@ -43,14 +44,15 @@ int main(int argc, char *argv[])
 
     auto timeStart = std::chrono::high_resolution_clock::now();
     std::cout << "Simulating... (Writing output to " << outputDirectory << ")" << std::endl;
+    std::cout << "Running with " << omp_get_max_threads() << " threads" << std::endl;
     int i = 0;
     golState->store(outputDirectory / (zfill(i, filenameDigits) + ".pbm"));
     for (i = 1; i <= iterations; i++)
     {
-        std::cout << "Step " << zfill(i, filenameDigits, ' ') << "/" << iterations << std::flush;
+        // std::cout << "Step " << zfill(i, filenameDigits, ' ') << "/" << iterations << std::flush;
         golState->update();
         golState->store(outputDirectory / (zfill(i, filenameDigits) + ".pbm"));
-        std::cout << '\r' << std::flush;
+        // std::cout << '\r' << std::flush;
     }
     std::cout << std::endl;
     auto timeStop = std::chrono::high_resolution_clock::now();

@@ -14,6 +14,10 @@
             "cwd": "${workspaceFolder}",
             "environment": [
                 {
+                    "name": "OMP_NUM_THREADS",
+                    "value": "8"
+                },
+                {
                     "name": "PATH",
                     "value": "${env:PATH}:${command:cmake.launchTargetDirectory}"
                 }
